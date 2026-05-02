@@ -7,12 +7,11 @@ import com.cyanide9102.taskmanagement.task.entity.Task;
 import com.cyanide9102.taskmanagement.user.entity.User;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TaskMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "completed", constant = "false")
-    @Mapping(target = "owner", source = "owner")
     Task toEntity(CreateTaskRequest dto, User owner);
 
     @Mapping(target = "ownerId", source = "owner.id")
