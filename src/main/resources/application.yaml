@@ -10,3 +10,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    open-in-view: false
+
+jwt:
+  secret: scj6biz7a6xv2wnIBdtQrfuQ3OgG4dl3WM52wGAkPyA=
+  access-token-expiration: 900000 # 15 minutes
