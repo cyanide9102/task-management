@@ -25,9 +25,9 @@ public class TaskServiceImpl implements TaskService {
     private final UserRepository userRepository;
 
     @Override
-    public TaskResponse createTask(CreateTaskRequest dto, Long ownerId) {
+    public TaskResponse createTask(CreateTaskRequest dto, String ownerEmail) {
 
-        User owner = userRepository.findById(ownerId)
+        User owner = userRepository.findByEmail(ownerEmail)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
         Task task = taskMapper.toEntity(dto, owner);

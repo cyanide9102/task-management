@@ -4,11 +4,13 @@ import com.cyanide9102.taskmanagement.user.dto.CreateUserRequest;
 import com.cyanide9102.taskmanagement.user.dto.UserResponse;
 import com.cyanide9102.taskmanagement.user.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
+    @Mapping(target = "password", ignore = true)
     User toEntity(CreateUserRequest dto);
 
     UserResponse fromEntity(User user);

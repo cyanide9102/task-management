@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TaskService {
 
-    TaskResponse createTask(CreateTaskRequest dto, Long ownerId);
+    TaskResponse createTask(CreateTaskRequest dto, String ownerEmail);
 
     List<TaskResponse> getTasksByOwner(Long ownerId);
 

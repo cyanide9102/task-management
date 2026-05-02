@@ -8,12 +8,14 @@ import com.cyanide9102.taskmanagement.user.mapper.UserMapper;
 import com.cyanide9102.taskmanagement.user.repository.UserRepository;
 import com.cyanide9102.taskmanagement.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final UserRepository userRepository;
 
@@ -25,8 +27,8 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = userMapper.toEntity(dto);
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
 
-        // TODO: hash password here
         userRepository.save(user);
 
         return userMapper.fromEntity(user);

@@ -7,6 +7,7 @@ import com.cyanide9102.taskmanagement.task.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,14 +19,14 @@ public class TaskController {
 
     private final TaskService taskService;
 
-    // TODO: userId is passed manually (until security is added)
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TaskResponse createTask(
-            @RequestParam Long ownerId,
-            @Valid @RequestBody CreateTaskRequest request) {
+            @Valid @RequestBody CreateTaskRequest request,
+            Authentication authentication) {
 
-        return taskService.createTask(request, ownerId);
+        String ownerEmail = authentication.getName();
+        return taskService.createTask(request, ownerEmail);
     }
 
     @GetMapping
